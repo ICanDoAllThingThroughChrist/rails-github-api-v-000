@@ -44,8 +44,10 @@ root 'repositories#index'
 ```
 
 A user visiting `http://localhost:3000/` will be routed to the root path.
-Before `repositories#index` can be invoked, we want to check if the user is
-authenticated. Write `authenticate_user` and `logged_in?` methods in
+Before `repositories#index` can be invoked, we want to
+check if the user is
+authenticated.
+Write `authenticate_user` and `logged_in?` methods in
 `application_controller.rb` that will be called before every action. In
 `authenticate_user`, if the user isn't logged in (i.g. no session token), we
 will redirect to GitHub. The base URL here will be
