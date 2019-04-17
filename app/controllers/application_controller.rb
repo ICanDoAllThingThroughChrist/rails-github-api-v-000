@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_user
-    binding.pry
+    # binding.pry
     client_id = ENV['GITHUB_CLIENT_ID']
     client_secret = ENV['GITHUB_CLIENT_SECRET']
     github_url = "https://github.com/login/oauth/authorize?client_id=#{client_id}"
