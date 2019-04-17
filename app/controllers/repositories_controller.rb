@@ -1,19 +1,15 @@
 class RepositoriesController < ApplicationController
+  before_action :authenticate_user
 
   def index
-    user = Faraday.get "https://api.github.com/user" do |req|
-     req.headers["Authorization"] = "token " + session[:token]
-     req.headers["Accept"] = 'application/json'
-   end
-   @user_data = JSON.parse(user.body)
-#binding.pry
-    repos = Faraday.get "https://api.github.com/user/repos" do |req|
-     req.headers["Authorization"] = "token " + session[:token]
-     req.headers["Accept"] = 'application/json'
-   end
-#binding.pry
-   @repos_data = JSON.parse(repos.body)
+    response = Faraday.get("http://github.com/user/repos", {}, {'Authorization' => "token #{session[:token]}", "Accept" => "application/json"})
+      @repos_array = JSON.parse(response.body)
+      repos = Faraday.get("http://api.github.com/user/repos") do |req|
+        req.headers['Authorization'] = "token" + session[:token]
+        req.headers['Accept'] = "application/json"
+      end
+      body = JSON.parse(user.body)
+      @user_name = body["login"]
+      @repos_list = JSON.parse(repos.body)
  end
-  end
-
 end
